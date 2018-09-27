@@ -6,8 +6,6 @@ import sys
 import os
 
 
-
-
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -160,7 +158,7 @@ def find_by_date():
     print("Search by date")
     print("Here are the dates that we have entries for: \n")
     for date in dates:
-        print(string_to_datetime(date))
+        print(datetime_to_string(date))
     print("\n")
     user_input = task_date()
     
