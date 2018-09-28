@@ -305,7 +305,6 @@ def print_entries(index, entries, display=True):
         print("Showing {} of {} entry(s)".format(index + 1, len(entries)))
     
         
-    print("\n" + "=" * 50 + "\n")
     print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes {}"
           "".format(
             datetime_to_string(entries[index].date),
