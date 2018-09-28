@@ -14,7 +14,7 @@ class Entry(Model):
     
     
     class Meta:
-        databse = db
+        database = db
 
 
 def initialize():
