@@ -1,5 +1,6 @@
 from entry import Entry, initialize
 
+
 from datetime import datetime
 from collections import OrderedDict
 import sys
@@ -49,9 +50,9 @@ def task_notes():
 
 def task_date():
     while True:
-        date = input("Enter the date of the task in MM/DD/YYYY Format: ")
+        date = input("Enter the date of the task in YYYY-MM-DD Format: ")
         try:
-            datetime.strptime(date, "%m/%d/%Y")
+            datetime.strptime(date, "%Y/%m/%d")
         except ValueError:
             print("That is not a valid date, please check the format and try again ")
             continue
@@ -80,8 +81,8 @@ def get_user_entry():
     date = string_to_datetime(task_date())
     employee_name = employees_name()
     task_name = task_title()
-    notes = task_notes()
     minutes = time_spent()
+    notes = task_notes()    
     
     entry = {
         "employee_name": employee_name,
@@ -216,12 +217,12 @@ def distinct_dates():
 
 
 def string_to_datetime(date):
-    date_to_datetime = datetime.strptime(date, "%m/%d/%Y").date()
+    date_to_datetime = datetime.strptime(date, "%Y/%m/%d").date()
     return date_to_datetime
 
 
 def datetime_to_string(date):
-    date = date.strftime("%m/%d/%Y")
+    date = date.strftime("%Y/%m/%d")
     return date
     
 
@@ -275,7 +276,7 @@ def display_entries(entries):
                       "".format(user_input))
                 
                 
-        display_nav_search(index, entries)
+        display_nav_menu(index, entries)
         
         user_input = input("\nPlease select a option from above: ").lower().strip()
         
@@ -303,17 +304,17 @@ def display_entries(entries):
 def print_entries(index, entries, display=True):
     if display:
         print("Showing {} of {} entry(s)".format(index + 1, entries.count()))
-    
         
-    print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes {}"
-          "".format(
+        
+    print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes: {}"
+        "".format(
             datetime_to_string(entries[index].date),
             entries[index].employee_name,
             entries[index].task_name,
             entries[index].minutes,
-            entries[index].notes))
-        
-        
+            entries[index].notes))      
+
+    
 def exit_program():
     """Exit the program"""
     print("The program will now close")
