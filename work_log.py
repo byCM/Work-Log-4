@@ -330,7 +330,7 @@ def display_nav_menu(index, entries):
     
     if index == 0:
         menu.remove(a)
-    elif index == len(entries) - 1:
+    elif index == entries.count() - 1:
         menu.remove(n)
         
     print("\n")
