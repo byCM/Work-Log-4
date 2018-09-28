@@ -257,7 +257,7 @@ def display_entries(entries):
         clear()
         print_entries(index, entries)
         
-        if len(entries) == 1:
+        if entries.count() == 1:
             print("""
             A) Edit Entry
             B) Delete Entry
@@ -282,10 +282,10 @@ def display_entries(entries):
         if index == 0 and user_input == 'b':
             index += 1
             clear()
-        elif index > 0 and index < len(entries) - 1 and user_input == 'b':
+        elif index > 0 and index < entries.count() - 1 and user_input == 'b':
             index += 1
             clear()
-        elif index == len(entries) - 1 and user_input == 'a':
+        elif index == entries.count() - 1 and user_input == 'a':
             index -= 1
             clear()
         elif user_input == 'c':
@@ -302,7 +302,7 @@ def display_entries(entries):
                                
 def print_entries(index, entries, display=True):
     if display:
-        print("Showing {} of {} entry(s)".format(index + 1, len(entries)))
+        print("Showing {} of {} entry(s)".format(index + 1, entries.count()))
     
         
     print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes {}"
@@ -441,9 +441,3 @@ if __name__ == '__main__':
     clear()
     input("Welcome, press ENTER to continue")
     menu_loop()
-
-                  
-        
-        
-
-    
