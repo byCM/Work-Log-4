@@ -52,7 +52,7 @@ def task_date():
     while True:
         date = input("Enter the date of the task in YYYY-MM-DD Format: ")
         try:
-            datetime.strptime(date, "%Y/%m/%d")
+            datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
             print("That is not a valid date, please check the format and try again ")
             continue
@@ -217,12 +217,12 @@ def distinct_dates():
 
 
 def string_to_datetime(date):
-    date_to_datetime = datetime.strptime(date, "%Y/%m/%d").date()
+    date_to_datetime = datetime.strptime(date, "%Y-%m-%d").date()
     return date_to_datetime
 
 
 def datetime_to_string(date):
-    date = date.strftime("%Y/%m/%d")
+    date = date.strftime("%Y-%m-%d")
     return date
     
 
