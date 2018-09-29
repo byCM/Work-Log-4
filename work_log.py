@@ -216,7 +216,7 @@ def time_search_matches(entries):
                 minutes = input("\nWhich time would you like to search?")
                 if minutes in times:
                     entries = Entry.select().order_by(Entry.minutes.desc()).where(
-                        Entry.minutes == minutes)
+                        Entry.minutes == int(minutes))
                     return entries
         
             
@@ -310,7 +310,7 @@ def display_entries(entries):
         
         if entries.count() == 1:
             print("""
-            C) Return To Main Menu
+            C) Press C to return to the main menu
             """)
             user_input = input("\nSelect a option from above: ").lower().strip()
             if user_input == 'c':
@@ -333,14 +333,10 @@ def display_entries(entries):
         elif index == entries.count() - 1 and user_input == 'a':
             index -= 1
             clear()
-        elif user_input == 'c':
-            return edit_entry(index, entries)
-        elif user_input == 'd': 
-            return delete_entry(index, entries)
         elif user_input == 'e':
             return menu_loop()
         else:
-            input("{} is not a valid option, please enter A, B, C, D, or E."
+            input("{} is not a valid option, please enter A, B, or E."
                   "".format(user_input))
             
                                
@@ -368,10 +364,8 @@ def exit_program():
 def display_nav_menu(index, entries):
     a = "A) Previous Entry"
     b = "B) Next Entry"
-    c = "C) Edit Entry"
-    d = "D) Delete Entry"
     e = "E) Return to Main Menu"
-    menu = [a, b, c, d, e]
+    menu = [a, b, e]
     
     if index == 0:
         menu.remove(a)
