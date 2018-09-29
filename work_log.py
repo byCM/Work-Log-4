@@ -150,7 +150,7 @@ def check_employee_matches(entries):
                           "".format(employee_name))
                     input("Press ENTER to try again")
         return entries
-
+    
 
 def find_by_date():
     """Search by date"""
@@ -188,7 +188,17 @@ def date_range_search():
         clear()
         if entries:
             display_entries(entries)
-
+            
+def time_search():
+    """Search by time spent"""
+    clear()
+    user_input = input("Enter the time amount you would like to search for: ")
+    entries = select_entries()
+    entries = entries.where(Entry.minute == user_input)
+    if entries:
+        display_entries(entries)
+    
+    
             
 def keyword_search():
     """Search by keyword"""
@@ -240,7 +250,7 @@ def list_entries(entries, user_input):
             return search_entries()
 
 
-def display_entry():
+def display_entry(entry):
     print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes: {}"
           "".format(
             entry.date,
@@ -260,17 +270,11 @@ def display_entries(entries):
         
         if entries.count() == 1:
             print("""
-            A) Edit Entry
-            B) Delete Entry
             C) Return To Main Menu
             """)
             user_input = input("\nSelect a option from above: ").lower().strip()
-            if user_input == 'a':
-                return edit_entry(index, entries)
-            if user_input == 'b':
-                return delete_entry(index, entries)
             if user_input == 'c':
-                sys.exit()
+                menu_loop()
             else:
                 input("\n{} is not a available choice, please try again."
                       "".format(user_input))
@@ -332,7 +336,7 @@ def display_nav_menu(index, entries):
     if index == 0:
         menu.remove(a)
     elif index == entries.count() - 1:
-        menu.remove(n)
+        menu.remove(b)
         
     print("\n")
     for option in menu:
@@ -355,57 +359,7 @@ def search_entries():
             clear()
             search = search_menu[choice]()
             return search
-
-                       
-def edit_task_name(entry):
-    """Edit a task name for an entry."""
-    entry.task_name = task_title() 
-    entry.save()
-    input("Edit was successful, press ENTER to continue.")
-    return entry
-                      
-def edit_date(entry):
-    """Edit a worklog entry"""
-    entry.date = task_date()
-    entry.save()
-    input("Edit was successful, press ENTER to continue.")
-    return entry
-     
-
-def edit_time(entry):
-    """Edit the minutes on a entry"""
-    entry.minutes = time_spent()
-    entry.save()
-    input("Edit was successful, press ENTER to continue")
-    return entry
-      
-        
-def edit_notes(entry):
-    """Edit the notes on a entry"""
-    entry.notes = task_notes()
-    entry.save()
-    input("Edit was successful, press ENTER to continue")
-    return entry
-
- 
-def delete_entry(index, entries):
-    """Delete a entry"""
-    entry = entries[index]
-    clear()
-    print("Delete entry\n")
-    display_entry(entry)
-    user_input = input("\nAre you sure you wuld like to delete this entry? [Y/N] ").lower.strip()
-        
-    if user_input == 'y':
-        entry.delete_instance()
-        print("\nThe entry was deleted")
-        input("\nPress ENTER to continue")
-        return None
-    else:
-        print("\nThe Entry was not deleted")
-        input("\nPress ENTER and you will return to the Main Menu.")
-        return menu_loop()
-               
+            
         
 def menu_loop():
     """Return to Main Menu"""
@@ -433,6 +387,7 @@ search_menu = OrderedDict([
         ('d', find_by_date),
         ('r', date_range_search),
         ('k', keyword_search),
+        ('m', time_search),
         ('q', menu_loop)
 ])
     
