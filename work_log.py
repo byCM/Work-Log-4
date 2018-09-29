@@ -188,17 +188,37 @@ def date_range_search():
         clear()
         if entries:
             display_entries(entries)
+
             
 def time_search():
     """Search by time spent"""
     clear()
     user_input = input("Enter the time amount you would like to search for: ")
     entries = select_entries()
-    entries = entries.where(Entry.minute == user_input)
-    if entries:
-        display_entries(entries)
-    
-    
+    entries = entries.where(Entry.minutes == user_input)
+    entries = time_search_matches(entries)
+    list_entries(entries, user_input)
+    return entries
+
+
+def time_search_matches(entries):
+    times = []
+    for entry in entries:
+        time = entry.minutes
+        if time not in times:
+            times.append(time)
+        if len(times) > 1:
+            while True:
+                clear()
+                print("These times match your search")
+                for time in times:
+                    print(time)
+                minutes = input("\nWhich time would you like to search?")
+                if minutes in times:
+                    entries = Entry.select().order_by(Entry.minutes.desc()).where(
+                        Entry.minutes == minutes)
+                    return entries
+        
             
 def keyword_search():
     """Search by keyword"""
@@ -210,6 +230,26 @@ def keyword_search():
         Entry.task_name.contains(user_input)|Entry.notes.contains(user_input))
     list_entries(entries, user_input)
     return entries
+
+
+def keyword_matches(entries):
+    keywords = []
+    for entry in entries:
+        keyword = entry.notes.strip()
+        if keyword not in keywords:
+            keywords.append(name)
+        if len(keywords) > 1:
+            while True:
+                clear()
+                print("These entries match your keywords")
+                for keyword in keywords:
+                    print(keyword)
+                notes = input("\nWhich keyword would you like to search").strip()
+                if notes in keywords:
+                    entries = Entry.select().order_by(Entry.date.desc()).where(
+                        Entry.notes == notes)
+                    return entries
+            
     
 
 
