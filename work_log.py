@@ -119,7 +119,7 @@ def select_entries():
 def find_employee():
     """Search by an employee's name"""
     clear()
-    print("Search by employees name")
+    print("Search by employees name\n")
     user_input = employees_name()
     entries = select_entries()
     entries = entries.where(Entry.employee_name.contains(user_input))
@@ -194,11 +194,17 @@ def time_search():
     """Search by time spent"""
     clear()
     user_input = input("Enter the time amount you would like to search for: ")
-    entries = select_entries()
-    entries = entries.where(Entry.minutes == user_input)
-    entries = time_search_matches(entries)
-    list_entries(entries, user_input)
-    return entries
+    try: 
+        val = int(user_input)
+    except ValueError:
+        print("That is not a valid number")
+    else:
+        entries = select_entries()
+        entries = entries.where(Entry.minutes == user_input)
+        list_entries(entries, user_input)
+        return entries
+
+    
 
 
 def time_search_matches(entries):
@@ -213,10 +219,10 @@ def time_search_matches(entries):
                 print("These times match your search")
                 for time in times:
                     print(time)
-                minutes = input("\nWhich time would you like to search?")
+                minutes = input("\nWhich time would you like to search?").strip()
                 if minutes in times:
                     entries = Entry.select().order_by(Entry.minutes.desc()).where(
-                        Entry.minutes == int(minutes))
+                        Entry.minutes == minutes)
                     return entries
         
             
@@ -282,7 +288,7 @@ def list_entries(entries, user_input):
         return display_entries(entries)
     else:
         print("Nothing matching {} was found".format(user_input))
-        response = input("\nWould you like to search for something else? [Y/N]")
+        response = input("\nWould you like to search for something else? [Y/N] ")
         if response.lower().strip() == 'y':
             return menu_loop()
         else:
@@ -344,6 +350,7 @@ def display_entries(entries):
 def print_entries(index, entries, display=True):
     if display:
         print("Showing {} of {} entry(s)".format(index + 1, entries.count()))
+
         
         
     print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes: {}"
