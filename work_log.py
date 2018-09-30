@@ -201,10 +201,8 @@ def time_search():
     else:
         entries = select_entries()
         entries = entries.where(Entry.minutes == user_input)
-        list_entries(entries, user_input)
+        list_entries_int(entries, user_input)
         return entries
-
-    
 
 
 def time_search_matches(entries):
@@ -285,7 +283,7 @@ def datetime_to_string(date):
 def list_entries(entries, user_input):
     clear()
     if entries:
-        return display_entries(entries)
+        return display_entries(entries)        
     else:
         print("Nothing matching {} was found".format(user_input))
         response = input("\nWould you like to search for something else? [Y/N] ")
@@ -294,6 +292,20 @@ def list_entries(entries, user_input):
         else:
             clear()
             return search_entries()
+        
+def list_entries_int(entries, user_input):
+    clear()
+    if entries.count() > 0:
+        return display_entries(entries)        
+    else:
+        print("Nothing matching {} was found".format(user_input))
+        response = input("\nWould you like to search for something else? [Y/N] ")
+        if response.lower().strip() == 'y':
+            return menu_loop()
+        else:
+            clear()
+            return search_entries()
+        
 
 
 def display_entry(entry):
