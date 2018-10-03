@@ -8,6 +8,11 @@ from peewee import *
 import work_log
 from entry import Entry
 
+
+test_db = SqliteDatabase(':memory:')
+test_db.connect()
+test_db.create_tables([Entry], safe=True)
+
 TEST = {
     "employee_name": "Mason",
     "task_name": "Cleaning",
@@ -17,7 +22,7 @@ TEST = {
 }
 
 TEST2 = {
-    "emplyee_name": "Carter",
+    "employee_name": "Carter",
     "task_name": "Mopping",
     "minutes": 30,
     "notes": "Some more notes",
@@ -28,14 +33,14 @@ class LogTest(unittest.TestCase):
 
     @staticmethod
     def entry_creator():
-        worklog.Entry.create(
+        work_log.Entry.create(
             employee_name=TEST["employee_name"],
             task_name=TEST["task_name"],
             date=TEST["date"],
             minutes=TEST["minutes"],
-            task_notes=TEST["task_notes"])
+            notes=TEST["notes"])
 
-        worklog.Entry.create(
+        work_log.Entry.create(
             employee_name=TEST2["employee_name"],
             task_name=TEST2["task_name"],
             date=TEST2["date"],
@@ -70,6 +75,21 @@ class LogTest(unittest.TestCase):
             "Very Clean", "n", ""]
             , return_value=TEST):
             assert work_log.add_entry() == None
+            
+    def test_display_nav_menu(self):
+        a = "A) Previous Entry"
+        b = "B) Next Entry"
+        e = "E) Return to Main Menu"
+
+        with test_database(test_db, (Entry,)):
+            self.entry_creator()
+            entries = Entry.select()
+            Entry.create(**TEST2)
+            index = 0
+            menu = [b, e]
+
+            work_log.display_nav_menu(index, entries)
+            self.assertNotIn(a, menu)
 
 
 
