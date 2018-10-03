@@ -1,6 +1,7 @@
 import unittest
 import unittest.mock as mock
 
+
 from playhouse.test_utils import test_database
 from datetime import datetime
 from peewee import *
@@ -76,6 +77,7 @@ class LogTest(unittest.TestCase):
             , return_value=TEST):
             assert work_log.add_entry() == None
             
+
     def test_display_nav_menu(self):
         a = "A) Previous Entry"
         b = "B) Next Entry"
@@ -90,9 +92,26 @@ class LogTest(unittest.TestCase):
 
             work_log.display_nav_menu(index, entries)
             self.assertNotIn(a, menu)
-
-
-
+                       
+    
+    def test_search_menu(self):
+        self.assertIsInstance(work_log.search_menu, dict)
         
+    def test_main_menu(self):
+        self.assertIsInstance(work_log.main_menu, dict)
+    
+    
+    @unittest.mock.patch('work_log.search_entries', side_effect=['q', 'c'])
+    def test_list_entries_calls_search_entries(self, mock):
+        entries = []
+        user_input = ''
+        
+        with unittest.mock.patch('builtins.input', side_effect=["n"]):
+                        
+            work_log.list_entries(entries, user_input)
+            self.assertTrue(mock.called)
+        
+            
+
 if __name__ == '__main__':
     unittest.main()
