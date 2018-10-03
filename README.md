@@ -1,6 +1,6 @@
 # Work-Log-4
 
-INSTRUCTIONS
+Project Instructions
 
 As a user of the script, I should be able to choose whether to add a new entry or lookup previous entries.
 
