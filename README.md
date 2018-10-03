@@ -1,5 +1,7 @@
 # Work-Log-4
 
+INSTRUCTIONS
+
 As a user of the script, I should be able to choose whether to add a new entry or lookup previous entries.
 
 As a user of the script, if I choose to enter a new work log, I should be able to provide my name, a task name, a number of minutes spent working on it, and any additional notes I want to record.
