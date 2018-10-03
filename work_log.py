@@ -20,7 +20,7 @@ def employees_name():
         else:
             return employee_name
 
-        
+
 def task_title():
     while True:
         task_name = input("Enter the name of the task: ")
@@ -42,7 +42,7 @@ def time_spent():
         else:
             return minutes
 
-        
+
 def task_notes():
     notes = input("Enter any notes for this task (Click enter to leave blank): ")
     return notes
@@ -58,8 +58,8 @@ def task_date():
             continue
         else:
             return date
-        
 
+        
 def entry_preview(entry):
     clear()
     print("""
@@ -254,8 +254,6 @@ def keyword_matches(entries):
                         Entry.notes == notes)
                     return entries
             
-    
-
 
 def distinct_dates():
     """Find all distinc dates in the database."""
@@ -268,7 +266,6 @@ def distinct_dates():
             dates.append(date)
     return dates
      
-
 
 def string_to_datetime(date):
     date_to_datetime = datetime.strptime(date, "%Y-%m-%d").date()
@@ -292,6 +289,7 @@ def list_entries(entries, user_input):
         else:
             clear()
             return search_entries()
+
         
 def list_entries_int(entries, user_input):
     clear()
@@ -307,7 +305,6 @@ def list_entries_int(entries, user_input):
             return search_entries()
         
 
-
 def display_entry(entry):
     print("Date: {}\nEmployee Name: {}\nTask Name: {}\nMinutes: {}\nNotes: {}"
           "".format(
@@ -317,8 +314,7 @@ def display_entry(entry):
             entry.minutes,
             entry.notes))
 
-            
-        
+         
 def display_entries(entries):
     index = 0
     
@@ -357,7 +353,6 @@ def display_entries(entries):
             input("{} is not a valid option, please enter A, B, or E."
                   "".format(user_input))
             
-                               
                                
 def print_entries(index, entries, display=True):
     if display:
