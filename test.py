@@ -72,7 +72,7 @@ class LogTest(unittest.TestCase):
             assert work_log.add_entry()["task_name"] == TEST["task_name"]
 
         with unittest.mock.patch('builtins.input',
-            side_effect=["2016-12-25", "Name", "Cleaning", 45,
+            side_effect=["2018-12-23", "Name", "Cleaning", 45,
             "Very Clean", "n", ""]
             , return_value=TEST):
             assert work_log.add_entry() == None
