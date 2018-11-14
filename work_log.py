@@ -1,6 +1,5 @@
 from entry import Entry, initialize
 
-
 from datetime import datetime
 from collections import OrderedDict
 import sys
