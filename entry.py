@@ -9,9 +9,7 @@ class Entry(Model):
     date = DateTimeField(default=datetime.datetime.now)
     task_name = CharField(max_length=50)
     minutes = IntegerField(default=0)
-    notes = CharField(max_length=100)
-    
-    
+    notes = CharField(max_length=100)   
     
     class Meta:
         database = db
@@ -20,6 +18,3 @@ class Entry(Model):
 def initialize():
     db.connect()
     db.create_tables([Entry], safe=True)
-    
-        
-
