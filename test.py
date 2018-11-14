@@ -1,7 +1,6 @@
 import unittest
 import unittest.mock as mock
 
-
 from playhouse.test_utils import test_database
 from datetime import datetime
 from peewee import *
@@ -29,6 +28,7 @@ TEST2 = {
     "notes": "Some more notes",
     "date": "2018-10-12"
 }
+
 
 class LogTest(unittest.TestCase):
 
