@@ -1,4 +1,4 @@
-# Work Log 4 With a Database
+# Work Log 4 With Database
 
 ## Project Instructions
 
